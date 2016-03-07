@@ -1,6 +1,3 @@
-.classpath
-.project
-.settings/
 target/
 /Util/target/**
 /Controlers/target/**
