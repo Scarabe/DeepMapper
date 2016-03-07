@@ -7,11 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>br.com.MapperRobots</module>
-		<module>MapperRobots</module>
-		<module>SurfaceRobots</module>
 		<module>Services</module>
-		<module>Controler</module>
 		<module>Controlers</module>
 		<module>Util</module>
 	</modules>

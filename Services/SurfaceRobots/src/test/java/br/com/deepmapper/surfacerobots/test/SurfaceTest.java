@@ -16,8 +16,6 @@ import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
 
-
-
 public class SurfaceTest {
 	private static final Logger logger = LogManager.getLogger(SurfaceTest.class);
 	private FileUtil fileUtil = new FileUtil();
@@ -30,19 +28,17 @@ public class SurfaceTest {
 	@Test
 	public void testSurface() {
 		String noClassCol = dbConstants.getNoClassColl();
-		
+
 		logger.trace("Starting googleAcess.");
 		HtmlPage gPage = unitUtil.googleAcess("Onion links");
 
 		fileUtil.getHtmlPage(gPage.asXml(), "TesteGoogle", textConstants.getMyDesktop());
-		
+
 		logger.trace("Starting to get no classified links from any source.");
 		List<NoClassifiedLinksDto> noClassList = regexUtil.rxHtmlSurfApp(gPage);
 
 		logger.trace("Starting getMongoColl.");
 		dbUtil.insertNoClass(noClassList, noClassCol);
-		
-		
 
 		logger.trace("FINALIZADO PORRA!");
 	}
