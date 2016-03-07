@@ -21,7 +21,6 @@ import br.com.deepmapper.dto.NoClassifiedLinksDto;
 public class MongoUtil {
 	private DBConstants dbConstants = new DBConstants();
 	private static final Logger logger = LogManager.getLogger(MongoUtil.class);
-
 	@SuppressWarnings("resource")
 	public MongoCollection<Document> getMongoColl(String mongoColl) {
 		logger.trace(getClass());

@@ -15,7 +15,6 @@ import br.com.deepmapper.util.FileUtil;
 import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
-
 public class SurfaceTest {
 	private static final Logger logger = LogManager.getLogger(SurfaceTest.class);
 	private FileUtil fileUtil = new FileUtil();
