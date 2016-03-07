@@ -39,6 +39,6 @@ public class SurfaceTest {
 		logger.trace("Starting getMongoColl.");
 		dbUtil.insertNoClass(noClassList, noClassCol);
 
-		logger.trace("FINALIZADO PORRA!");
+		logger.trace("Ending of processing.");
 	}
 }

@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>br.com.deepmapper.controler</groupId>
 	<artifactId>EurekaServer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>EurekaServer</name>
 	<url>http://maven.apache.org</url>
 	<properties>
