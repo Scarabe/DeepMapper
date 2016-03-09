@@ -17,7 +17,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import br.com.deepmapper.constans.GoogleConstants;
 
 public class UnitUtil {
-	private GoogleConstants googleConstants = new GoogleConstants();
 	private static final Logger logger = LogManager.getLogger(UnitUtil.class);
 
 	@SuppressWarnings("resource")
@@ -34,7 +33,7 @@ public class UnitUtil {
 		webClient.getOptions().setJavaScriptEnabled(false);
 
 		try {
-			googlePage = webClient.getPage(googleConstants.getGoogleLink());
+			googlePage = webClient.getPage(GoogleConstants.googleLink);
 		} catch (FailingHttpStatusCodeException e) {
 			logger.error("Http Status " + e + ".");
 		} catch (MalformedURLException e) {
@@ -42,14 +41,14 @@ public class UnitUtil {
 		} catch (IOException e) {
 			logger.error("IO " + e + ".");
 		}
-		HtmlInput serchInput = googlePage.getElementByName(googleConstants.getInputSerchName());
+		HtmlInput serchInput = googlePage.getElementByName(GoogleConstants.inputSerchName);
 		serchInput.setValueAttribute(serchString);
 
-		HtmlSubmitInput submitSerch = googlePage.getElementByName(googleConstants.getSerchBtnName());
+		HtmlSubmitInput submitSerch = googlePage.getElementByName(GoogleConstants.serchBtnName);
 
 		try {
 			logger.trace(
-					"Submiting serch to " + googleConstants.getGoogleLink() + " serching for " + serchString + ".");
+					"Submiting serch to " + GoogleConstants.googleLink + " serching for " + serchString + ".");
 			googlePage = submitSerch.click();
 		} catch (IOException e) {
 			e.printStackTrace();

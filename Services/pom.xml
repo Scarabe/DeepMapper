@@ -11,6 +11,7 @@
 	<modules>
 		<module>MapperRobots</module>
 		<module>SurfaceRobots</module>
+		<module>MongoDataRest</module>
 	</modules>
 	<!-- Configuracao de build -->
 	<build>
@@ -29,4 +30,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>br.com.deepmapper</groupId>
+			<artifactId>Util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

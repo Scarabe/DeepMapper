@@ -19,17 +19,16 @@ import br.com.deepmapper.constans.DBConstants;
 import br.com.deepmapper.dto.NoClassifiedLinksDto;
 
 public class MongoUtil {
-	private DBConstants dbConstants = new DBConstants();
 	private static final Logger logger = LogManager.getLogger(MongoUtil.class);
 	@SuppressWarnings("resource")
 	public MongoCollection<Document> getMongoColl(String mongoColl) {
 		logger.trace(getClass());
 		logger.trace(
-				"Connecting to MongoDB IP: " + dbConstants.getMongoIp() + " Port: " + dbConstants.getMongoPort() + ".");
-		MongoClient mongoClient = new MongoClient(dbConstants.getMongoIp(), dbConstants.getMongoPort());
+				"Connecting to MongoDB IP: " + DBConstants.mongoIp + " Port: " + DBConstants.mongoPort + ".");
+		MongoClient mongoClient = new MongoClient(DBConstants.mongoIp, DBConstants.mongoPort);
 
-		logger.trace("Connecting to db named: " + dbConstants.getMongoDB() + ".");
-		MongoDatabase db = mongoClient.getDatabase(dbConstants.getMongoDB());
+		logger.trace("Connecting to db named: " + DBConstants.mongoDB + ".");
+		MongoDatabase db = mongoClient.getDatabase(DBConstants.mongoDB);
 
 		if (mongoFindColl(db, mongoColl)) {
 			logger.trace("Collection not found, creatting collection: " + mongoColl + ".");
@@ -89,8 +88,8 @@ public class MongoUtil {
 	public void creatIndex(MongoCollection<Document> setedColl, String mongoColl) {
 		logger.trace(getClass());
 
-		if (mongoColl.equals(dbConstants.getNoClassColl())) {
-			logger.trace("Creating index for " + dbConstants.getNoClassColl() + ".");
+		if (mongoColl.equals(DBConstants.noClassColl)) {
+			logger.trace("Creating index for " + DBConstants.noClassColl + ".");
 			setedColl.createIndex(new BasicDBObject("onionLink", 1), new IndexOptions().unique(true));
 		}
 	}

@@ -22,11 +22,10 @@ public class SurfaceTest {
 	private UnitUtil unitUtil = new UnitUtil();
 	private TextConstants textConstants = new TextConstants();
 	private RegexUtil regexUtil = new RegexUtil();
-	private DBConstants dbConstants = new DBConstants();
 
 	@Test
 	public void testSurface() {
-		String noClassCol = dbConstants.getNoClassColl();
+		String noClassCol = DBConstants.noClassColl;
 
 		logger.trace("Starting googleAcess.");
 		HtmlPage gPage = unitUtil.googleAcess("Onion links");

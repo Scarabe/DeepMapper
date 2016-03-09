@@ -1,13 +1,9 @@
 package br.com.deepmapper.constans;
 
 public class RegexConstants {
-	private String onionRegex = "(?i)(http:\\/\\/).{16}?(?:\\.onion)";
+	public static final String onionRegex;
 
-	public String getOnionRegex() {
-		return onionRegex;
-	}
-
-	public void setOnionRegex(String onionRegex) {
-		this.onionRegex = onionRegex;
+	static{
+		onionRegex = "(?i)(http:\\/\\/).{16}?(?:\\.onion)";
 	}
 }

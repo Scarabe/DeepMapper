@@ -15,7 +15,6 @@ import br.com.deepmapper.constans.RegexConstants;
 import br.com.deepmapper.dto.NoClassifiedLinksDto;
 
 public class RegexUtil {
-	private RegexConstants rxConstants = new RegexConstants();
 	private static final Logger logger = LogManager.getLogger(MongoUtil.class);
 
 	public List<NoClassifiedLinksDto> rxHtmlSurfApp(HtmlPage serchPage) {
@@ -24,7 +23,7 @@ public class RegexUtil {
 		List<NoClassifiedLinksDto> noClassList = new ArrayList<NoClassifiedLinksDto>();
 		URL sourcePage = serchPage.getUrl();
 
-		Pattern rxPatter = Pattern.compile(rxConstants.getOnionRegex());
+		Pattern rxPatter = Pattern.compile(RegexConstants.onionRegex);
 		Matcher rxMatcher = rxPatter.matcher(serchPage.asXml());
 		while (rxMatcher.find()) {
 			NoClassifiedLinksDto linksDto = new NoClassifiedLinksDto();
