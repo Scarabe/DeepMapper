@@ -11,7 +11,7 @@
 	<modules>
 		<module>MapperRobots</module>
 		<module>SurfaceRobots</module>
-		<module>MongoDataRest</module>
+		
 	</modules>
 	<!-- Configuracao de build -->
 	<build>
