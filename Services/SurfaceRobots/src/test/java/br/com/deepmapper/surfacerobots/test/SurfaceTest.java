@@ -20,7 +20,6 @@ public class SurfaceTest {
 	private FileUtil fileUtil = new FileUtil();
 	private MongoUtil dbUtil = new MongoUtil();
 	private UnitUtil unitUtil = new UnitUtil();
-	private TextConstants textConstants = new TextConstants();
 	private RegexUtil regexUtil = new RegexUtil();
 
 	@Test
@@ -30,7 +29,7 @@ public class SurfaceTest {
 		logger.trace("Starting googleAcess.");
 		HtmlPage gPage = unitUtil.googleAcess("Onion links");
 
-		fileUtil.getHtmlPage(gPage.asXml(), "TesteGoogle", textConstants.getMyDesktop());
+		fileUtil.getHtmlPage(gPage.asXml(), "TesteGoogle", TextConstants.myDesktop);
 
 		logger.trace("Starting to get no classified links from any source.");
 		List<NoClassifiedLinksDto> noClassList = regexUtil.rxHtmlSurfApp(gPage);

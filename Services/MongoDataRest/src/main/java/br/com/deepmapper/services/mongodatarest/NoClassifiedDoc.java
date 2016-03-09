@@ -1,9 +1,11 @@
+package br.com.deepmapper.services.mongodatarest;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.deepmapper.constans.DBConstants;
 
-@Document
+@Document(collection = DBConstants.noClassColl)
 public class NoClassifiedDoc {
 
 	@Id
