@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.jsoup.nodes.Document;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -16,21 +17,28 @@ import br.com.deepmapper.dto.NoClassifiedLinksDto;
 
 public class RegexUtil {
 	private static final Logger logger = LogManager.getLogger(MongoUtil.class);
-
-	public List<NoClassifiedLinksDto> rxHtmlSurfApp(HtmlPage serchPage) {
+	private JSoapUtil jsoapUtil = new JSoapUtil();
+	
+	public List<NoClassifiedLinksDto> rxHtmlSurfApp(HtmlPage serchPage, List<NoClassifiedLinksDto> noClassList) {
 		logger.trace(getClass());
 
-		List<NoClassifiedLinksDto> noClassList = new ArrayList<NoClassifiedLinksDto>();
 		URL sourcePage = serchPage.getUrl();
-
-		Pattern rxPatter = Pattern.compile(RegexConstants.onionRegex);
-		Matcher rxMatcher = rxPatter.matcher(serchPage.asXml());
+		logger.trace("Converting to jsoap document.");
+		Document jsoupReturn = jsoapUtil.toDocument(serchPage);
+		
+		logger.trace("Applyng regex pattern: "+RegexConstants.onionRegex+".");
+		Pattern rxPatter = Pattern.compile(RegexConstants.onionRegex, Pattern.MULTILINE);
+		
+		logger.trace("Applyng regex matcher.");
+		Matcher rxMatcher = rxPatter.matcher(jsoupReturn.text().replace(" ", ""));
+				
 		while (rxMatcher.find()) {
 			NoClassifiedLinksDto linksDto = new NoClassifiedLinksDto();
-
+			
 			linksDto.setSourceLink(sourcePage.toString());
 			linksDto.setOnionLink(rxMatcher.group());
 
+			logger.trace("Iserting new infos to NoClassifiedLinksDto list.");
 			noClassList.add(linksDto);
 		}
 

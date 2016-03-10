@@ -19,19 +19,18 @@ import br.com.deepmapper.constans.GoogleConstants;
 public class UnitUtil {
 	private static final Logger logger = LogManager.getLogger(UnitUtil.class);
 
-	@SuppressWarnings("resource")
 	public HtmlPage googleAcess(String serchString) {
-		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF); 
-		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log","org.apache.commons.logging.impl.NoOpLog");
+		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
+		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log",
+				"org.apache.commons.logging.impl.NoOpLog");
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 		java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
 		logger.trace(getClass());
 
-		WebClient webClient = new WebClient();
+		WebClient webClient = setWebClientOptions(new WebClient());
+
 		HtmlPage googlePage = null;
-
-		webClient.getOptions().setJavaScriptEnabled(false);
-
+		
 		try {
 			googlePage = webClient.getPage(GoogleConstants.googleLink);
 		} catch (FailingHttpStatusCodeException e) {
@@ -47,8 +46,7 @@ public class UnitUtil {
 		HtmlSubmitInput submitSerch = googlePage.getElementByName(GoogleConstants.serchBtnName);
 
 		try {
-			logger.trace(
-					"Submiting serch to " + GoogleConstants.googleLink + " serching for " + serchString + ".");
+			logger.trace("Submiting serch to " + GoogleConstants.googleLink + " serching for " + serchString + ".");
 			googlePage = submitSerch.click();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -56,5 +54,12 @@ public class UnitUtil {
 
 		logger.trace("Returning serched page.");
 		return googlePage;
+	}
+
+	private WebClient setWebClientOptions(WebClient webClient) {
+		webClient.getOptions().setCssEnabled(false);
+		webClient.getOptions().setJavaScriptEnabled(false);
+		webClient.getOptions().setJavaScriptEnabled(false);
+		return webClient;
 	}
 }

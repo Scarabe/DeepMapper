@@ -40,8 +40,6 @@ public class MongoUtil {
 
 		creatIndex(setedColl, mongoColl);
 
-		System.out.println();
-
 		return setedColl;
 	}
 
@@ -72,7 +70,11 @@ public class MongoUtil {
 			Document docSing = new Document();
 			docSing.append("externalLink", regLine.getSourceLink());
 			docSing.append("onionLink", regLine.getOnionLink());
-
+			
+			logger.trace("Inserting into the mongodb.");
+			logger.trace("externalLink: "+regLine.getSourceLink());
+			logger.trace("onionLink: "+regLine.getOnionLink());
+			
 			docMany.add(docSing);
 		});
 

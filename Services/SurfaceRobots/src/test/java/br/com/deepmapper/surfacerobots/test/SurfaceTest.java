@@ -1,16 +1,11 @@
 package br.com.deepmapper.surfacerobots.test;
 
-import java.util.List;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import br.com.deepmapper.constans.DBConstants;
-import br.com.deepmapper.constans.TextConstants;
-import br.com.deepmapper.dto.NoClassifiedLinksDto;
+import br.com.deepmapper.surfacerobots.crawlers.SurfaceExtractCrawler;
 import br.com.deepmapper.util.FileUtil;
 import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
@@ -26,9 +21,9 @@ public class SurfaceTest {
 	public void testSurface() {
 		String noClassCol = DBConstants.noClassColl;
 
-		logger.trace("Starting googleAcess.");
+		/*logger.trace("Starting googleAcess.");
 		HtmlPage gPage = unitUtil.googleAcess("Onion links");
-
+		
 		fileUtil.getHtmlPage(gPage.asXml(), "TesteGoogle", TextConstants.myDesktop);
 
 		logger.trace("Starting to get no classified links from any source.");
@@ -38,5 +33,8 @@ public class SurfaceTest {
 		dbUtil.insertNoClass(noClassList, noClassCol);
 
 		logger.trace("Ending of processing.");
+		*/
+		SurfaceExtractCrawler Crawler = new SurfaceExtractCrawler();
+		Crawler.googlePgCrawler();
 	}
 }
