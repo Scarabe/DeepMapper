@@ -1,7 +1,6 @@
 package br.com.deepmapper.util;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

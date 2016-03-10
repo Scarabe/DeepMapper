@@ -32,7 +32,8 @@ public class SurfaceExtractCrawler {
 		 List<NoClassifiedLinksDto> noClassList = new ArrayList<NoClassifiedLinksDto>();	
 		
 		HtmlDivision linksTable = (HtmlDivision) gPage.getElementById(GoogleConstants.linksTable);
-		List<HtmlElement> linksList = linksTable.getElementsByTagName("a");
+		@SuppressWarnings("unchecked")
+		List<HtmlElement> linksList = (List<HtmlElement>) linksTable.getByXPath("//h3[@class='r']/a");
 		
 		
 		for(HtmlElement link : linksList){
@@ -49,7 +50,5 @@ public class SurfaceExtractCrawler {
 		dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
 		
 		logger.trace("Finished.");
-		//HtmlDivision navBar = (HtmlDivision) gPage.getElementById(GoogleConstants.naviBar);
-		//List<HtmlElement> gPages = linksTable.getElementsByTagName("a");	
 	}
 }

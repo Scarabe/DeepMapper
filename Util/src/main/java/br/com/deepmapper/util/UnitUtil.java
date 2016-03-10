@@ -15,7 +15,6 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 
 import br.com.deepmapper.constans.GoogleConstants;
 
@@ -60,15 +59,14 @@ public class UnitUtil {
 	}
 
 	private WebClient creatingWebClient() {
-		WebClient webClient = new WebClient(BrowserVersion.CHROME);
-		
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38);
 		webClient.getOptions().setCssEnabled(false);
-		webClient.getOptions().setThrowExceptionOnScriptError(false);
-		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		webClient.getOptions().setUseInsecureSSL(true); 
-		webClient.getOptions().setThrowExceptionOnScriptError(false);
-		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		webClient.setCssErrorHandler(new SilentCssErrorHandler());
+		//webClient.getOptions().setThrowExceptionOnScriptError(false);
+		//webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		//webClient.getOptions().setThrowExceptionOnScriptError(false);
+		//webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		//webClient.setCssErrorHandler(new SilentCssErrorHandler());
 		
 		return webClient;
 	}
