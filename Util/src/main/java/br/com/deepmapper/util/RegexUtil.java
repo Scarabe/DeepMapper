@@ -38,7 +38,6 @@ public class RegexUtil {
 			linksDto.setSourceLink(sourcePage.toString());
 			linksDto.setOnionLink(rxMatcher.group());
 
-			logger.trace("Iserting new infos to NoClassifiedLinksDto list.");
 			noClassList.add(linksDto);
 		}
 

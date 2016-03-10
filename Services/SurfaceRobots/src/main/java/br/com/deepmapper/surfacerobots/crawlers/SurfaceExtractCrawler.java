@@ -10,9 +10,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import br.com.deepmapper.constans.DBConstants;
 import br.com.deepmapper.constans.GoogleConstants;
 import br.com.deepmapper.dto.NoClassifiedLinksDto;
 import br.com.deepmapper.surfacerobots.test.SurfaceTest;
+import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
 
@@ -20,6 +22,7 @@ public class SurfaceExtractCrawler {
 	private static final Logger logger = LogManager.getLogger(SurfaceTest.class);
 	private UnitUtil unitUtil = new UnitUtil();
 	private RegexUtil regexUtil = new RegexUtil();
+	private MongoUtil dbUtil = new MongoUtil();
 	
 	public void googlePgCrawler(){
 		logger.trace(getClass());
@@ -36,12 +39,17 @@ public class SurfaceExtractCrawler {
 			try {
 				logger.trace("Starting extraction from link: "+link.asText());
 				HtmlPage surfaceLinkPage = link.click();
-				noClassList= regexUtil.rxHtmlSurfApp(gPage, noClassList);
+				noClassList= regexUtil.rxHtmlSurfApp(surfaceLinkPage, noClassList);
 			} catch (Exception e) {
 				logger.error("The link: "+link.asText()+" has a problem. \n"+e);
 			}
 		};
 		
-		HtmlDivision navBar = (HtmlDivision) gPage.getElementById(GoogleConstants.naviBar);
+		
+		dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
+		
+		logger.trace("Finished.");
+		//HtmlDivision navBar = (HtmlDivision) gPage.getElementById(GoogleConstants.naviBar);
+		//List<HtmlElement> gPages = linksTable.getElementsByTagName("a");	
 	}
 }

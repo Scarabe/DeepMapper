@@ -8,11 +8,14 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
 
 import br.com.deepmapper.constans.GoogleConstants;
 
@@ -27,10 +30,10 @@ public class UnitUtil {
 		java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
 		logger.trace(getClass());
 
-		WebClient webClient = setWebClientOptions(new WebClient());
-
-		HtmlPage googlePage = null;
+		WebClient webClient = creatingWebClient();
 		
+		HtmlPage googlePage = null;
+
 		try {
 			googlePage = webClient.getPage(GoogleConstants.googleLink);
 		} catch (FailingHttpStatusCodeException e) {
@@ -56,10 +59,17 @@ public class UnitUtil {
 		return googlePage;
 	}
 
-	private WebClient setWebClientOptions(WebClient webClient) {
+	private WebClient creatingWebClient() {
+		WebClient webClient = new WebClient(BrowserVersion.CHROME);
+		
 		webClient.getOptions().setCssEnabled(false);
-		webClient.getOptions().setJavaScriptEnabled(false);
-		webClient.getOptions().setJavaScriptEnabled(false);
+		webClient.getOptions().setThrowExceptionOnScriptError(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setUseInsecureSSL(true); 
+		webClient.getOptions().setThrowExceptionOnScriptError(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		webClient.setCssErrorHandler(new SilentCssErrorHandler());
+		
 		return webClient;
 	}
 }
