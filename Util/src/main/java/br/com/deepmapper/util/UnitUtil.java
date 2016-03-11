@@ -59,14 +59,17 @@ public class UnitUtil {
 	}
 
 	private WebClient creatingWebClient() {
-		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38);
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080);  //Proxy config
+		//WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38); //Without proxy config
+		
+		webClient.getOptions().setJavaScriptEnabled(true);
 		webClient.getOptions().setCssEnabled(false);
-		webClient.getOptions().setUseInsecureSSL(true); 
-		//webClient.getOptions().setThrowExceptionOnScriptError(false);
-		//webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		//webClient.getOptions().setThrowExceptionOnScriptError(false);
-		//webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		//webClient.setCssErrorHandler(new SilentCssErrorHandler());
+		webClient.getOptions().setUseInsecureSSL(true);
+		webClient.getOptions().setThrowExceptionOnScriptError(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnScriptError(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		webClient.setCssErrorHandler(new SilentCssErrorHandler());
 		
 		return webClient;
 	}
