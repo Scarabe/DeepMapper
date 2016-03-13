@@ -45,7 +45,7 @@ public class UnitUtil {
 		HtmlInput serchInput = googlePage.getElementByName(GoogleConstants.inputSerchName);
 		serchInput.setValueAttribute(serchString);
 
-		HtmlSubmitInput submitSerch = googlePage.getElementByName(GoogleConstants.serchBtnName);
+		HtmlSubmitInput submitSerch = googlePage.getElementByName(GoogleConstants.searchBtnName);
 
 		try {
 			logger.trace("Submiting serch to " + GoogleConstants.googleLink + " serching for " + serchString + ".");
@@ -59,8 +59,8 @@ public class UnitUtil {
 	}
 
 	private WebClient creatingWebClient() {
-		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080);  //Proxy config
-		//WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38); //Without proxy config
+		//WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080);  //Proxy config
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38); //Without proxy config
 		
 		webClient.getOptions().setJavaScriptEnabled(true);
 		webClient.getOptions().setCssEnabled(false);

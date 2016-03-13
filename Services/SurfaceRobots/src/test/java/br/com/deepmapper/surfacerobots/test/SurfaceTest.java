@@ -12,14 +12,9 @@ import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
 public class SurfaceTest {
 	private static final Logger logger = LogManager.getLogger(SurfaceTest.class);
-	private FileUtil fileUtil = new FileUtil();
-	private MongoUtil dbUtil = new MongoUtil();
-	private UnitUtil unitUtil = new UnitUtil();
-	private RegexUtil regexUtil = new RegexUtil();
 
 	@Test
 	public void testSurface() {
-		String noClassCol = DBConstants.noClassColl;
 
 		/*logger.trace("Starting googleAcess.");
 		HtmlPage gPage = unitUtil.googleAcess("Onion links");
@@ -35,6 +30,6 @@ public class SurfaceTest {
 		logger.trace("Ending of processing.");
 		*/
 		SurfaceExtractCrawler Crawler = new SurfaceExtractCrawler();
-		Crawler.googlePgCrawler();
+		Crawler.googleRuningPages();
 	}
 }
