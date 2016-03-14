@@ -5,8 +5,11 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -20,6 +23,7 @@ import br.com.deepmapper.constans.DBConstants;
 import br.com.deepmapper.constans.GoogleConstants;
 import br.com.deepmapper.dto.NoClassifiedLinksDto;
 import br.com.deepmapper.surfacerobots.test.SurfaceTest;
+import br.com.deepmapper.util.FileUtil;
 import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
@@ -31,19 +35,21 @@ public class SurfaceExtractCrawler {
 	private MongoUtil dbUtil = new MongoUtil();
 
 	public void googleRuningPages() {
-		logger.trace(getClass());
+		logger.trace("googleRuningPages()");
 		
-		ExecutorService executor = Executors.newFixedThreadPool( 2 );
+		CompletionService<Boolean> executor = new ExecutorCompletionService <Boolean>(Executors.newFixedThreadPool(5));
 
 		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent);
 		String searchUrl = gPage.getUrl().toString() + GoogleConstants.googleLinkPlusPage;
 
+		List<Future<Boolean>> threads = new ArrayList<>();
 		for (int searchResult = 0; searchResult <= GoogleConstants.googleMaxSearch; searchResult += 10) {
 			final int searchFinal = searchResult;
-			
-			executor.submit((Runnable & Serializable) () -> {
+
+			Future<Boolean> thread = executor.submit((Callable<Boolean> & Serializable) () -> {
 				logger.trace("*******************************************************");
 				logger.trace("Starting google page" + GoogleConstants.googleLinkPlusPage + searchFinal);
+
 				try {
 					HtmlPage searchPage = gPage.getWebClient().getPage(searchUrl + searchFinal);
 					googlePgCrawler(searchPage);
@@ -56,30 +62,47 @@ public class SurfaceExtractCrawler {
 				}
 				logger.trace("Finished google page " + GoogleConstants.googleLinkPlusPage + searchFinal);
 				logger.trace("*******************************************************");
+				return true;
 			});
+
+			threads.add(thread);
 		}
+
+		threads.stream().forEach(thread -> {
+			try {
+				thread.get();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
-	public void googlePgCrawler(HtmlPage gPage) {	
-		logger.trace(getClass());
+	public void googlePgCrawler(HtmlPage gPage) {
+		logger.trace("googlePgCrawler()");
 
 		List<NoClassifiedLinksDto> noClassList = new ArrayList<NoClassifiedLinksDto>();
 
 		HtmlDivision linksTable = (HtmlDivision) gPage.getElementById(GoogleConstants.linksTable);
-		@SuppressWarnings("unchecked")
-		List<HtmlElement> linksList = (List<HtmlElement>) linksTable.getByXPath("//h3[@class='r']/a");
-
-		for (HtmlElement link : linksList) {
-			try {
-				logger.trace("Starting extraction from link: " + link.asText());
-				HtmlPage surfaceLinkPage = link.click();
-				noClassList = regexUtil.rxHtmlSurfApp(surfaceLinkPage, noClassList);
-			} catch (Exception e) {
-				logger.error("The link: " + link.asText() + " has a problem. \n" + e);
+		
+		
+		if(linksTable!= null){
+			@SuppressWarnings("unchecked")
+			List<HtmlElement> linksList = (List<HtmlElement>) linksTable.getByXPath(GoogleConstants.xpathGLinks);
+			
+			for (HtmlElement link : linksList) {
+				try {
+					logger.trace("Starting extraction from link: " + link.asText());
+					HtmlPage surfaceLinkPage = link.click();
+					noClassList = regexUtil.rxHtmlSurfApp(surfaceLinkPage, noClassList);
+				} catch (Exception e) {
+					logger.error("The link: " + link.asText() + " has a problem. \n" + e);
+				}
 			}
-		}
-		;
 
-		dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
+			dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
+		}else{
+			logger.error("List null");
+			new FileUtil().getHtmlPage(gPage.asXml().toString(), "Teste", "C:\\Users\\guilherme\\Desktop");
+		}
 	}
 }

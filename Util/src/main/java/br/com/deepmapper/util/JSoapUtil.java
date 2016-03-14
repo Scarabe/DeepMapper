@@ -10,7 +10,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class JSoapUtil {
 	private static final Logger logger = LogManager.getLogger(JSoapUtil.class);
 	public Document toDocument(HtmlPage page){
-		logger.trace(getClass());
+		logger.trace("toDocument()");
 		
 		logger.trace("Using jsoap parser.");
 		return Jsoup.parse(page.asXml().toString());

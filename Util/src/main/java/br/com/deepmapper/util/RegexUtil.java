@@ -19,7 +19,7 @@ public class RegexUtil {
 	private JSoapUtil jsoapUtil = new JSoapUtil();
 	
 	public List<NoClassifiedLinksDto> rxHtmlSurfApp(HtmlPage serchPage, List<NoClassifiedLinksDto> noClassList) {
-		logger.trace(getClass());
+		logger.trace("rxHtmlSurfApp()");
 
 		URL sourcePage = serchPage.getUrl();
 		logger.trace("Converting to jsoap document.");

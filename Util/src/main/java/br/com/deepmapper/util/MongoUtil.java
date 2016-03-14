@@ -44,7 +44,7 @@ public class MongoUtil {
 	}
 
 	public boolean mongoFindColl(MongoDatabase db, String mongoColl) {
-		logger.trace(getClass());
+		logger.trace("mongoFindColl()");
 
 		boolean findColl = true;
 		MongoIterable<String> tables = db.listCollectionNames();
@@ -61,7 +61,7 @@ public class MongoUtil {
 	}
 
 	public void insertNoClass(List<NoClassifiedLinksDto> noClassList, String mongoColl) {
-		logger.trace(getClass());
+		logger.trace("insertNoClass()");
 
 		MongoCollection<Document> setedColl = getMongoColl(mongoColl);
 		List<Document> docMany = new ArrayList<Document>();
@@ -88,7 +88,7 @@ public class MongoUtil {
 	}
 
 	public void creatIndex(MongoCollection<Document> setedColl, String mongoColl) {
-		logger.trace(getClass());
+		logger.trace("creatIndex()");
 
 		if (mongoColl.equals(DBConstants.noClassColl)) {
 			logger.trace("Creating index for " + DBConstants.noClassColl + ".");

@@ -22,6 +22,8 @@ public class UnitUtil {
 	private static final Logger logger = LogManager.getLogger(UnitUtil.class);
 
 	public HtmlPage googleAcess(String serchString) {
+		logger.trace("googleAcess()");
+		
 		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
 		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log",
 				"org.apache.commons.logging.impl.NoOpLog");
