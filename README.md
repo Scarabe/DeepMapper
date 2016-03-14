@@ -1,6 +1,6 @@
 # DeepMapper
 
-<b>Dissertation project who wants make a simple mapping of the DeepWeb.<\b>
+<b>Dissertation project who wants make a simple mapping of the DeepWeb.</b>
 
 <b>To run<\b> you just need a MongoDB pointed at the project.
 
