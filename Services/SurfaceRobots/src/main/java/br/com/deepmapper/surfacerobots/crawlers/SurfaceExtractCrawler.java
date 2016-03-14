@@ -1,9 +1,12 @@
 package br.com.deepmapper.surfacerobots.crawlers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,41 +24,43 @@ import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
 
-public class SurfaceExtractCrawler{
+public class SurfaceExtractCrawler {
 	private static final Logger logger = LogManager.getLogger(SurfaceTest.class);
 	private UnitUtil unitUtil = new UnitUtil();
 	private RegexUtil regexUtil = new RegexUtil();
 	private MongoUtil dbUtil = new MongoUtil();
 
-	public void googleRuningPages(){
+	public void googleRuningPages() {
 		logger.trace(getClass());
 		
+		ExecutorService executor = Executors.newFixedThreadPool( 2 );
+
 		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent);
 		String searchUrl = gPage.getUrl().toString() + GoogleConstants.googleLinkPlusPage;
 
 		for (int searchResult = 0; searchResult <= GoogleConstants.googleMaxSearch; searchResult += 10) {
+			final int searchFinal = searchResult;
 			
-			logger.trace("*******************************************************");
-			logger.trace("Starting google page" +  GoogleConstants.googleLinkPlusPage + searchResult);
-			
-			try {
-				HtmlPage searchPage = gPage.getWebClient().getPage(searchUrl + searchResult);
-				googlePgCrawler(searchPage);
-			} catch (FailingHttpStatusCodeException e) {
-				logger.error("Http Status " + e + ".");
-			} catch (MalformedURLException e) {
-				logger.error("Malformed Url " + e + ".");
-			} catch (IOException e) {
-				logger.error("IO " + e + ".");
-			}
-
-			logger.trace("Finished google page " +  GoogleConstants.googleLinkPlusPage + searchResult);
-			logger.trace("*******************************************************");
+			executor.submit((Runnable & Serializable) () -> {
+				logger.trace("*******************************************************");
+				logger.trace("Starting google page" + GoogleConstants.googleLinkPlusPage + searchFinal);
+				try {
+					HtmlPage searchPage = gPage.getWebClient().getPage(searchUrl + searchFinal);
+					googlePgCrawler(searchPage);
+				} catch (FailingHttpStatusCodeException e) {
+					logger.error("Http Status " + e + ".");
+				} catch (MalformedURLException e) {
+					logger.error("Malformed Url " + e + ".");
+				} catch (IOException e) {
+					logger.error("IO " + e + ".");
+				}
+				logger.trace("Finished google page " + GoogleConstants.googleLinkPlusPage + searchFinal);
+				logger.trace("*******************************************************");
+			});
 		}
-
 	}
 
-	public void googlePgCrawler(HtmlPage gPage) {
+	public void googlePgCrawler(HtmlPage gPage) {	
 		logger.trace(getClass());
 
 		List<NoClassifiedLinksDto> noClassList = new ArrayList<NoClassifiedLinksDto>();
