@@ -5,7 +5,7 @@
 <b>To run:</b><br>
 Just need a MongoDB pointed at the project.
 
-<b>Startar o mongo:</b><br>
+<b>Startar mongo:</b><br>
 mongod --dbpath E:\datamongo\deepmapper --port 27017
 
 <b>Next focus:</b><br>
