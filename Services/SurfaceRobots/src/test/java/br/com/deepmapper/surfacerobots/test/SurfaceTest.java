@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import br.com.deepmapper.constans.DBConstants;
-import br.com.deepmapper.surfacerobots.crawlers.SurfaceExtractCrawler;
+import br.com.deepmapper.surfacerobots.crawlers.GoogleExtractCrawler;
 import br.com.deepmapper.util.FileUtil;
 import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
@@ -29,7 +29,7 @@ public class SurfaceTest {
 
 		logger.trace("Ending of processing.");
 		*/
-		SurfaceExtractCrawler Crawler = new SurfaceExtractCrawler();
+		GoogleExtractCrawler Crawler = new GoogleExtractCrawler();
 		Crawler.googleRuningPages();
 	}
 }

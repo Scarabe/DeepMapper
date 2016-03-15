@@ -18,6 +18,16 @@ public class RegexUtil {
 	private static final Logger logger = LogManager.getLogger(MongoUtil.class);
 	private JSoapUtil jsoapUtil = new JSoapUtil();
 	
+	/**
+	 * Method description: Class to make the aplication of a regex
+	 *
+	 * @since 15 de mar de 2016 08:00:11
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param HtmlPage serchPage
+	 * @param List<NoClassifiedLinksDto> noClassList
+	 * @return List<NoClassifiedLinksDto> noClassList
+	 */
 	public List<NoClassifiedLinksDto> rxHtmlSurfApp(HtmlPage serchPage, List<NoClassifiedLinksDto> noClassList) {
 		logger.trace("rxHtmlSurfApp()");
 

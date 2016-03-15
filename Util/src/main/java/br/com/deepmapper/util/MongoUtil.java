@@ -20,6 +20,16 @@ import br.com.deepmapper.dto.NoClassifiedLinksDto;
 
 public class MongoUtil {
 	private static final Logger logger = LogManager.getLogger(MongoUtil.class);
+	
+	/**
+	 * Method description: Main metod get the mongo collection
+	 *
+	 * @since 15 de mar de 2016 08:03:55
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param String mongoColl
+	 * @return MongoCollection<Document> setedColl
+	 */
 	@SuppressWarnings("resource")
 	public MongoCollection<Document> getMongoColl(String mongoColl) {
 		logger.trace(getClass());
@@ -43,6 +53,16 @@ public class MongoUtil {
 		return setedColl;
 	}
 
+	/**
+	 * Method description: Method who looks for the collection before creat it;
+	 *
+	 * @since 15 de mar de 2016 08:03:14
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param MongoDatabase db
+	 * @param String mongoColl
+	 * @return
+	 */
 	public boolean mongoFindColl(MongoDatabase db, String mongoColl) {
 		logger.trace("mongoFindColl()");
 
@@ -60,6 +80,15 @@ public class MongoUtil {
 		return findColl;
 	}
 
+	/**
+	 * Method description: Inserting registers into mongodb
+	 *
+	 * @since 15 de mar de 2016 08:02:45
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param List<NoClassifiedLinksDto> noClassList
+	 * @param String mongoColl
+	 */
 	public void insertNoClass(List<NoClassifiedLinksDto> noClassList, String mongoColl) {
 		logger.trace("insertNoClass()");
 
@@ -87,6 +116,15 @@ public class MongoUtil {
 
 	}
 
+	/**
+	 * Method description: Creating mongo index
+	 *
+	 * @since 15 de mar de 2016 08:01:55
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param MongoCollection<Document>  setedColl
+	 * @param String mongoColl
+	 */
 	public void creatIndex(MongoCollection<Document> setedColl, String mongoColl) {
 		logger.trace("creatIndex()");
 

@@ -11,6 +11,16 @@ import org.apache.log4j.Logger;
 public class FileUtil {
 	private static final Logger logger = LogManager.getLogger(FileUtil.class);
 
+	/**
+	 * Method description: Create a file with the xml estructure of the page.
+	 *
+	 * @since 15 de mar de 2016 08:11:18
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param String html
+	 * @param String fileName
+	 * @param String Path
+	 */
 	public void getHtmlPage(String html, String fileName, String Path) {
 		logger.trace("getHtmlPage()");
 

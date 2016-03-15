@@ -21,6 +21,15 @@ import br.com.deepmapper.constans.GoogleConstants;
 public class UnitUtil {
 	private static final Logger logger = LogManager.getLogger(UnitUtil.class);
 
+	/**
+	 * Method description: Google point of acess and search.
+	 *
+	 * @since 15 de mar de 2016 07:59:25
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param String serchString;
+	 * @return HtmlPage googlePage;
+	 */
 	public HtmlPage googleAcess(String serchString) {
 		logger.trace("googleAcess()");
 		
@@ -60,6 +69,13 @@ public class UnitUtil {
 		return googlePage;
 	}
 
+	/**
+	 * Method description: Webclient configuration
+	 *
+	 * @since 15 de mar de 2016 07:59:02
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 */
 	private WebClient creatingWebClient() {
 		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080);  //Proxy config
 		//WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38); //Without proxy config

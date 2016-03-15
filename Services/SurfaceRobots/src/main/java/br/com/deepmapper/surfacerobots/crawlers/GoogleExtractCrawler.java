@@ -28,12 +28,19 @@ import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
 
-public class SurfaceExtractCrawler {
+public class GoogleExtractCrawler {
 	private static final Logger logger = LogManager.getLogger(SurfaceTest.class);
 	private UnitUtil unitUtil = new UnitUtil();
 	private RegexUtil regexUtil = new RegexUtil();
 	private MongoUtil dbUtil = new MongoUtil();
 
+	/**
+	 * Method description: Main method of google crawler, run on threads. 
+	 *
+	 * @since 15 de mar de 2016 08:15:25
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 */
 	public void googleRuningPages() {
 		logger.trace("googleRuningPages()");
 		
@@ -76,6 +83,15 @@ public class SurfaceExtractCrawler {
 			}
 		});
 	}
+	
+	/**
+	 * Method description: Run all google pages and apply the regex.
+	 *
+	 * @since 15 de mar de 2016 08:16:37
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param HtmlPage gPage
+	 */
 
 	public void googlePgCrawler(HtmlPage gPage) {
 		logger.trace("googlePgCrawler()");
@@ -102,7 +118,7 @@ public class SurfaceExtractCrawler {
 			dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
 		}else{
 			logger.error("List null");
-			new FileUtil().getHtmlPage(gPage.asXml().toString(), "Teste", "C:\\Users\\guilherme\\Desktop");
+			//TODO MAKE CAPTCHA BREAKER
 		}
 	}
 }
