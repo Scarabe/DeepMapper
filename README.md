@@ -10,3 +10,4 @@ mongod --dbpath E:\datamongo\deepmapper --port 27017
 
 <b>Next focus:</b><br>
 Remove julllog from console.
+Improve google navi.
