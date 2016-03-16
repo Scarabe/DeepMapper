@@ -9,5 +9,5 @@ Just need a MongoDB pointed at the project.
 mongod --dbpath E:\datamongo\deepmapper --port 27017
 
 <b>Next focus:</b><br>
-Remove julllog from console.
+Remove julllog from console.<br>
 Improve google navi.
