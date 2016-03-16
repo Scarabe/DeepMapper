@@ -54,11 +54,14 @@ public class GoogleExtractCrawler {
 			final int searchFinal = searchResult;
 
 			Future<Boolean> thread = executor.submit((Callable<Boolean> & Serializable) () -> {
+				List<NoClassifiedLinksDto> noClassList = new ArrayList<NoClassifiedLinksDto>();
+				
 				logger.trace("*******************************************************");
 				logger.trace("Starting google page" + GoogleConstants.googleLinkPlusPage + searchFinal);
-
 				try {
 					HtmlPage searchPage = gPage.getWebClient().getPage(searchUrl + searchFinal);
+					noClassList = regexUtil.rxHtmlSurfApp(searchPage, noClassList);
+					dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
 					googlePgCrawler(searchPage);
 				} catch (FailingHttpStatusCodeException e) {
 					logger.error("Http Status " + e + ".");

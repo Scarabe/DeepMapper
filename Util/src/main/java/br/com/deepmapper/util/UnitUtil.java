@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.ProxyConfig;
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
@@ -21,6 +22,7 @@ import br.com.deepmapper.constans.TextConstants;
 
 public class UnitUtil {
 	private static final Logger logger = LogManager.getLogger(UnitUtil.class);
+	
 
 	public UnitUtil() {
 		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
@@ -44,13 +46,17 @@ public class UnitUtil {
 	public WebClient webConfigure(int clientType) {
 		logger.trace("webConfigure()");
 		WebClient webClient = null;
-
+		
 		if (clientType == 1) {
 			webClient = configuringWebClient(new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080));
 			// WebClient webClient = creatingWebClient(new
 			// WebClient(BrowserVersion.FIREFOX_38));
 		} else if (clientType == 2) {
-			webClient = configuringWebClient(new WebClient(BrowserVersion.FIREFOX_38, "localhost", 9051));
+			webClient = configuringWebClient(new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080));
+			ProxyConfig prc = new ProxyConfig("localhost", 9051, true);
+			webClient.getOptions().setProxyConfig(prc); 
+			
+			webClient = configuringWebClient(webClient);
 		}
 
 		return webClient;
@@ -71,7 +77,7 @@ public class UnitUtil {
 
 		HtmlPage googlePage = null;
 
-		WebClient webClient = webConfigure(TextConstants.deepConfig);
+		WebClient webClient = webConfigure(TextConstants.surfaceConfig);
 
 		try {
 			googlePage = webClient.getPage(GoogleConstants.googleLink);

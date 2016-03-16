@@ -4,6 +4,7 @@ package br.com.deepmapper.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.bson.Document;
@@ -20,27 +21,32 @@ import br.com.deepmapper.dto.NoClassifiedLinksDto;
 
 public class MongoUtil {
 	private static final Logger logger = LogManager.getLogger(MongoUtil.class);
-	
+
+	public MongoUtil() {
+		
+	}
+
 	/**
 	 * Method description: Main metod get the mongo collection
 	 *
 	 * @since 15 de mar de 2016 08:03:55
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
-	 * @param String mongoColl
+	 * @param String
+	 *            mongoColl
 	 * @return MongoCollection<Document> setedColl
 	 */
 	@SuppressWarnings("resource")
 	public MongoCollection<Document> getMongoColl(String mongoColl) {
 		logger.trace(getClass());
-		logger.trace(
-				"Connecting to MongoDB IP: " + DBConstants.mongoIp + " Port: " + DBConstants.mongoPort + ".");
+		logger.trace("Connecting to MongoDB IP: " + DBConstants.mongoIp + " Port: " + DBConstants.mongoPort + ".");
 		MongoClient mongoClient = new MongoClient(DBConstants.mongoIp, DBConstants.mongoPort);
 
 		logger.trace("Connecting to db named: " + DBConstants.mongoDB + ".");
 		MongoDatabase db = mongoClient.getDatabase(DBConstants.mongoDB);
 
-		if (mongoFindColl(db, mongoColl)) {
+		boolean newColl = mongoFindColl(db, mongoColl);
+		if (newColl) {
 			logger.trace("Collection not found, creatting collection: " + mongoColl + ".");
 			db.createCollection(mongoColl);
 		}
@@ -48,7 +54,9 @@ public class MongoUtil {
 		logger.trace("Getting collection: " + mongoColl + ".");
 		MongoCollection<Document> setedColl = db.getCollection(mongoColl);
 
-		creatIndex(setedColl, mongoColl);
+		if (newColl) {
+			creatIndex(setedColl, mongoColl);
+		}
 
 		return setedColl;
 	}
@@ -59,8 +67,10 @@ public class MongoUtil {
 	 * @since 15 de mar de 2016 08:03:14
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
-	 * @param MongoDatabase db
-	 * @param String mongoColl
+	 * @param MongoDatabase
+	 *            db
+	 * @param String
+	 *            mongoColl
 	 * @return
 	 */
 	public boolean mongoFindColl(MongoDatabase db, String mongoColl) {
@@ -86,8 +96,10 @@ public class MongoUtil {
 	 * @since 15 de mar de 2016 08:02:45
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
-	 * @param List<NoClassifiedLinksDto> noClassList
-	 * @param String mongoColl
+	 * @param List<NoClassifiedLinksDto>
+	 *            noClassList
+	 * @param String
+	 *            mongoColl
 	 */
 	public void insertNoClass(List<NoClassifiedLinksDto> noClassList, String mongoColl) {
 		logger.trace("insertNoClass()");
@@ -97,13 +109,13 @@ public class MongoUtil {
 
 		noClassList.forEach(regLine -> {
 			Document docSing = new Document();
-			docSing.append("externalLink", regLine.getSourceLink());
-			docSing.append("onionLink", regLine.getOnionLink());
-			
+			docSing.append(DBConstants.sourceID, regLine.getSourceLink());
+			docSing.append(DBConstants.onionID, regLine.getOnionLink());
+
 			logger.trace("Inserting into the mongodb.");
-			logger.trace("externalLink: "+regLine.getSourceLink());
-			logger.trace("onionLink: "+regLine.getOnionLink());
-			
+			logger.trace(DBConstants.sourceID + ": " + regLine.getSourceLink());
+			logger.trace(DBConstants.onionID + ": " + regLine.getOnionLink());
+
 			docMany.add(docSing);
 		});
 
@@ -122,15 +134,17 @@ public class MongoUtil {
 	 * @since 15 de mar de 2016 08:01:55
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
-	 * @param MongoCollection<Document>  setedColl
-	 * @param String mongoColl
+	 * @param MongoCollection<Document>
+	 *            setedColl
+	 * @param String
+	 *            mongoColl
 	 */
 	public void creatIndex(MongoCollection<Document> setedColl, String mongoColl) {
 		logger.trace("creatIndex()");
 
 		if (mongoColl.equals(DBConstants.noClassColl)) {
 			logger.trace("Creating index for " + DBConstants.noClassColl + ".");
-			setedColl.createIndex(new BasicDBObject("onionLink", 1), new IndexOptions().unique(true));
+			setedColl.createIndex(new BasicDBObject(DBConstants.onionID, 1), new IndexOptions().unique(true));
 		}
 	}
 }

@@ -9,4 +9,4 @@ Just need a MongoDB pointed at the project.
 mongod --dbpath E:\datamongo\deepmapper --port 27017
 
 <b>Next focus:</b><br>
-Break google catpcha maybe with DeathByCaptcha .
+Remove julllog from console.
