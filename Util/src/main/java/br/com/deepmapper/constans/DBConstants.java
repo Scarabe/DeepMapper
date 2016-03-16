@@ -6,4 +6,5 @@ public class DBConstants {
 	public static final int mongoPort = 27017;
 	public static final String mongoDB = "DeepMapper";
 	public static final String noClassColl = "NoClassifiedLinks";
+	public static final String onionID = "onionLink";
 }

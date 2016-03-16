@@ -35,7 +35,7 @@ public class GoogleExtractCrawler {
 	private MongoUtil dbUtil = new MongoUtil();
 
 	/**
-	 * Method description: Main method of google crawler, run on threads. 
+	 * Method description: Main method of google crawler, run on threads.
 	 *
 	 * @since 15 de mar de 2016 08:15:25
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
@@ -43,10 +43,10 @@ public class GoogleExtractCrawler {
 	 */
 	public void googleRuningPages() {
 		logger.trace("googleRuningPages()");
-		
-		CompletionService<Boolean> executor = new ExecutorCompletionService <Boolean>(Executors.newFixedThreadPool(5));
-		
-		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent, unitUtil.webConfigure(TextConstants.surfaceConfig));
+
+		CompletionService<Boolean> executor = new ExecutorCompletionService<Boolean>(Executors.newFixedThreadPool(TextConstants.maxThreadPool));
+
+		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent);
 		String searchUrl = gPage.getUrl().toString() + GoogleConstants.googleLinkPlusPage;
 
 		List<Future<Boolean>> threads = new ArrayList<>();
@@ -83,14 +83,15 @@ public class GoogleExtractCrawler {
 			}
 		});
 	}
-	
+
 	/**
 	 * Method description: Run all google pages and apply the regex.
 	 *
 	 * @since 15 de mar de 2016 08:16:37
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
-	 * @param HtmlPage gPage
+	 * @param HtmlPage
+	 *            gPage
 	 */
 
 	public void googlePgCrawler(HtmlPage gPage) {
@@ -99,12 +100,11 @@ public class GoogleExtractCrawler {
 		List<NoClassifiedLinksDto> noClassList = new ArrayList<NoClassifiedLinksDto>();
 
 		HtmlDivision linksTable = (HtmlDivision) gPage.getElementById(GoogleConstants.linksTable);
-		
-		
-		if(linksTable!= null){
+
+		if (linksTable != null) {
 			@SuppressWarnings("unchecked")
 			List<HtmlElement> linksList = (List<HtmlElement>) linksTable.getByXPath(GoogleConstants.xpathGLinks);
-			
+
 			for (HtmlElement link : linksList) {
 				try {
 					logger.trace("Starting extraction from link: " + link.asText());
@@ -116,9 +116,9 @@ public class GoogleExtractCrawler {
 			}
 
 			dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
-		}else{
-			logger.error("List null");
-			//TODO MAKE CAPTCHA BREAKER
+		} else {
+			logger.error("Google captcha.");
+			// TODO MAKE CAPTCHA BREAKER
 		}
 	}
 }
