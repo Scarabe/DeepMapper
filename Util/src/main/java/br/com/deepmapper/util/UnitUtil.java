@@ -20,7 +20,38 @@ import br.com.deepmapper.constans.GoogleConstants;
 
 public class UnitUtil {
 	private static final Logger logger = LogManager.getLogger(UnitUtil.class);
-
+	
+	public UnitUtil(){
+		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
+		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log",
+				"org.apache.commons.logging.impl.NoOpLog");
+		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
+		java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
+		logger.trace(getClass()); 
+	}
+	
+	/**
+	 * Method description: Configuring web client for surface or deepweb
+	 *
+	 * @since 16 de mar de 2016 08:46:37
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param int clientType: 1 = Surface, 2 = Deep
+	 * @return WebClient webClient
+	 */
+	public WebClient webConfigure(int clientType){
+		WebClient webClient = null;
+		
+		if(clientType == 1){
+			webClient = configuringWebClient(new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080));
+			//WebClient webClient = creatingWebClient(new WebClient(BrowserVersion.FIREFOX_38));
+		}else if(clientType == 2){
+			webClient = configuringWebClient(new WebClient(BrowserVersion.FIREFOX_38, "localhost", 9051));
+		}
+		
+		return webClient;
+	}
+	
 	/**
 	 * Method description: Google point of acess and search.
 	 *
@@ -30,18 +61,9 @@ public class UnitUtil {
 	 * @param String serchString;
 	 * @return HtmlPage googlePage;
 	 */
-	public HtmlPage googleAcess(String serchString) {
+	public HtmlPage googleAcess(String serchString, WebClient webClient) {
 		logger.trace("googleAcess()");
-		
-		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
-		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log",
-				"org.apache.commons.logging.impl.NoOpLog");
-		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
-		java.util.logging.Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
-		logger.trace(getClass());
-
-		WebClient webClient = creatingWebClient();
-		
+				
 		HtmlPage googlePage = null;
 
 		try {
@@ -76,10 +98,7 @@ public class UnitUtil {
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
 	 */
-	private WebClient creatingWebClient() {
-		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080);  //Proxy config
-		//WebClient webClient = new WebClient(BrowserVersion.FIREFOX_38); //Without proxy config
-		
+	private WebClient configuringWebClient(WebClient webClient) {
 		webClient.getOptions().setJavaScriptEnabled(true);
 		webClient.getOptions().setCssEnabled(false);
 		webClient.getOptions().setUseInsecureSSL(true);

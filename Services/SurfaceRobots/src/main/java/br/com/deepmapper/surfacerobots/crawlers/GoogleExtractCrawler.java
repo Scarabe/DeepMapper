@@ -21,9 +21,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import br.com.deepmapper.constans.DBConstants;
 import br.com.deepmapper.constans.GoogleConstants;
+import br.com.deepmapper.constans.TextConstants;
 import br.com.deepmapper.dto.NoClassifiedLinksDto;
 import br.com.deepmapper.surfacerobots.test.SurfaceTest;
-import br.com.deepmapper.util.FileUtil;
 import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
@@ -45,8 +45,8 @@ public class GoogleExtractCrawler {
 		logger.trace("googleRuningPages()");
 		
 		CompletionService<Boolean> executor = new ExecutorCompletionService <Boolean>(Executors.newFixedThreadPool(5));
-
-		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent);
+		
+		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent, unitUtil.webConfigure(TextConstants.surfaceConfig));
 		String searchUrl = gPage.getUrl().toString() + GoogleConstants.googleLinkPlusPage;
 
 		List<Future<Boolean>> threads = new ArrayList<>();
