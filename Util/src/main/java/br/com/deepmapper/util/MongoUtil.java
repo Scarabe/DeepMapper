@@ -22,10 +22,6 @@ import br.com.deepmapper.dto.NoClassifiedLinksDto;
 public class MongoUtil {
 	private static final Logger logger = LogManager.getLogger(MongoUtil.class);
 
-	public MongoUtil() {
-		
-	}
-
 	/**
 	 * Method description: Main metod get the mongo collection
 	 *

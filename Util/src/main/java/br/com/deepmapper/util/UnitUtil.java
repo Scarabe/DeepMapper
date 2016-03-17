@@ -2,6 +2,7 @@ package br.com.deepmapper.util;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Random;
 import java.util.logging.Level;
 
 import org.apache.commons.logging.LogFactory;
@@ -22,7 +23,6 @@ import br.com.deepmapper.constans.TextConstants;
 
 public class UnitUtil {
 	private static final Logger logger = LogManager.getLogger(UnitUtil.class);
-	
 
 	public UnitUtil() {
 		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
@@ -43,19 +43,17 @@ public class UnitUtil {
 	 *            clientType: 1 = Surface, 2 = Deep
 	 * @return WebClient webClient
 	 */
-	public WebClient webConfigure(int clientType) {
+	public WebClient newWebConfigure(int clientType) {
 		logger.trace("webConfigure()");
 		WebClient webClient = null;
-		
+
 		if (clientType == 1) {
-			webClient = configuringWebClient(new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080));
-			// WebClient webClient = creatingWebClient(new
-			// WebClient(BrowserVersion.FIREFOX_38));
+			webClient = alterNavi();
 		} else if (clientType == 2) {
 			webClient = configuringWebClient(new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080));
 			ProxyConfig prc = new ProxyConfig("localhost", 9051, true);
-			webClient.getOptions().setProxyConfig(prc); 
-			
+			webClient.getOptions().setProxyConfig(prc);
+
 			webClient = configuringWebClient(webClient);
 		}
 
@@ -77,7 +75,7 @@ public class UnitUtil {
 
 		HtmlPage googlePage = null;
 
-		WebClient webClient = webConfigure(TextConstants.surfaceConfig);
+		WebClient webClient = newWebConfigure(TextConstants.surfaceConfig);
 
 		try {
 			googlePage = webClient.getPage(GoogleConstants.googleLink);
@@ -111,7 +109,8 @@ public class UnitUtil {
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
 	 */
-	private WebClient configuringWebClient(WebClient webClient) {
+	private static WebClient configuringWebClient(WebClient webClient) {
+		logger.trace("WebClient()");
 		webClient.getOptions().setJavaScriptEnabled(true);
 		webClient.getOptions().setCssEnabled(false);
 		webClient.getOptions().setUseInsecureSSL(true);
@@ -123,4 +122,45 @@ public class UnitUtil {
 
 		return webClient;
 	}
+
+	/**
+	 * Method description: Randomize webclient
+	 *
+	 * @since 17 de mar de 2016 08:07:01
+	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
+	 * @version 1.0
+	 * @param Webclient
+	 *            wb
+	 * @return
+	 */
+	@SuppressWarnings({ "deprecation" })
+	public static WebClient alterNavi() {
+		logger.trace("alterNavi()");
+		WebClient wb = null;
+		Random randomGenerator = new Random();
+		int randonInt = randomGenerator.nextInt(3);;
+		
+
+		if (randonInt == 0) {
+			wb = new WebClient(BrowserVersion.FIREFOX_38, TextConstants.proxyIP, TextConstants.proxyPort);
+			logger.info("Alter navi to " + BrowserVersion.FIREFOX_38.getNickname());
+
+		} else if (randonInt == 1) {
+			wb = new WebClient(BrowserVersion.EDGE, TextConstants.proxyIP, TextConstants.proxyPort);
+			logger.info("Alter navi to " + BrowserVersion.EDGE.getNickname());
+
+		} else if (randonInt == 2) {
+			wb = new WebClient(BrowserVersion.INTERNET_EXPLORER_11, TextConstants.proxyIP, TextConstants.proxyPort);
+			logger.info("Alter navi to " + BrowserVersion.INTERNET_EXPLORER_11.getNickname());
+
+		} else if (randonInt == 3){
+			wb = new WebClient(BrowserVersion.CHROME, TextConstants.proxyIP, TextConstants.proxyPort);
+			logger.info("Alter navi to " + BrowserVersion.CHROME.getNickname());
+		}
+
+		wb = configuringWebClient(wb);
+
+		return wb;
+	}
+
 }

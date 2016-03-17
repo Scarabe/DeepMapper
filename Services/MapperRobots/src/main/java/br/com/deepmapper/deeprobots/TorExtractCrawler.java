@@ -33,7 +33,7 @@ public class TorExtractCrawler {
 	public void torAcess() {
 		logger.trace("torAcess()");
 		
-		final WebClient webClient = unitUtil.webConfigure(TextConstants.deepConfig);
+		final WebClient webClient = unitUtil.newWebConfigure(TextConstants.deepConfig);
 		MongoCollection<Document> setedColl = dbUtil.getMongoColl(DBConstants.noClassColl);
 		FindIterable<Document> cursor = setedColl.find();
 		List<NoClassifiedLinksDto> noClassList = new ArrayList<NoClassifiedLinksDto>();

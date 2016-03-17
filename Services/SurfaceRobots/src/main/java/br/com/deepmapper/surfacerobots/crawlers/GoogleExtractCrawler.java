@@ -46,7 +46,7 @@ public class GoogleExtractCrawler {
 
 		CompletionService<Boolean> executor = new ExecutorCompletionService<Boolean>(Executors.newFixedThreadPool(TextConstants.maxThreadPool));
 
-		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent);
+		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent.replace(" ", "+"));
 		String searchUrl = gPage.getUrl().toString() + GoogleConstants.googleLinkPlusPage;
 
 		List<Future<Boolean>> threads = new ArrayList<>();
@@ -59,7 +59,7 @@ public class GoogleExtractCrawler {
 				logger.trace("*******************************************************");
 				logger.trace("Starting google page" + GoogleConstants.googleLinkPlusPage + searchFinal);
 				try {
-					HtmlPage searchPage = gPage.getWebClient().getPage(searchUrl + searchFinal);
+					HtmlPage searchPage = unitUtil.newWebConfigure(1).getPage(searchUrl + searchFinal);
 					noClassList = regexUtil.rxHtmlSurfApp(searchPage, noClassList);
 					dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
 					googlePgCrawler(searchPage);
@@ -93,8 +93,7 @@ public class GoogleExtractCrawler {
 	 * @since 15 de mar de 2016 08:16:37
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
-	 * @param HtmlPage
-	 *            gPage
+	 * @param HtmlPage gPage
 	 */
 
 	public void googlePgCrawler(HtmlPage gPage) {
