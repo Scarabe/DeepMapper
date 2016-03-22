@@ -24,6 +24,7 @@ import br.com.deepmapper.constans.GoogleConstants;
 import br.com.deepmapper.constans.TextConstants;
 import br.com.deepmapper.dto.NoClassifiedLinksDto;
 import br.com.deepmapper.surfacerobots.test.SurfaceTest;
+import br.com.deepmapper.util.FileUtil;
 import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
@@ -120,7 +121,7 @@ public class GoogleExtractCrawler {
 			dbUtil.insertNoClass(noClassList, DBConstants.noClassColl);
 		} else {
 			logger.error("Google captcha.");
-			// TODO MAKE CAPTCHA BREAKER
+			new FileUtil().getHtmlPage(gPage.asXml().toString(), "teste", TextConstants.workDesktop);
 		}
 	}
 }
