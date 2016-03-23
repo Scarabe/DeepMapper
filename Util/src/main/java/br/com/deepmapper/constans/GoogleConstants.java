@@ -7,7 +7,7 @@ public class GoogleConstants {
 	public static final String linksTable = "res";
 	public static final String xpathGLinks = "//h3[@class='r']/a";
 	public static final String naviBar = "navcnt";
-	public static final String serchContent = "DeepWeb links";
+	public static final String serchContent = "Onion links";
 	public static final String googleLinkPlusPage = "&start=";
 	public static final int googleMaxSearch = 990;
 }

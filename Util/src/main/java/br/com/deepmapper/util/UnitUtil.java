@@ -50,11 +50,9 @@ public class UnitUtil {
 		if (clientType == 1) {
 			webClient = alterNavi();
 		} else if (clientType == 2) {
-			webClient = configuringWebClient(new WebClient(BrowserVersion.FIREFOX_38, "192.168.0.3", 8080));
-			ProxyConfig prc = new ProxyConfig("localhost", 9051, true);
+			webClient = configuringWebClient(new WebClient());
+			ProxyConfig prc = new ProxyConfig(TextConstants.proxyIP, 9150, true);
 			webClient.getOptions().setProxyConfig(prc);
-
-			webClient = configuringWebClient(webClient);
 		}
 
 		return webClient;
