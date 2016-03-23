@@ -1,4 +1,4 @@
-package br.com.deepmapper.deeprobots;
+package br.com.deepmapper.deeprobots.crawlers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

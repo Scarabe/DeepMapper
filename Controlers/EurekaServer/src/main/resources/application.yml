@@ -1,5 +1,5 @@
 server:
-  port: ${vcap.application.port:8763}
+  port: 8763
 
 endpoints:
   restart:
@@ -16,7 +16,11 @@ eureka:
     fetchRegistry: false
   server:
     waitTimeInMsWhenSyncEmpty: 0
+  instance:
+    hostname: localhost
       
+eureka.client.serviceUrl.defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
 
 ribbon:
   eureka:
@@ -26,3 +30,5 @@ logging:
   level:
     com.netflix: 'WARN'
     org.springframework.cloud: 'WARN'
+    
+    

@@ -1,6 +1,6 @@
 server:
   port: 0
-
+  
 endpoints:
   restart:
     enabled: true
@@ -9,15 +9,22 @@ endpoints:
   health:
     sensitive: false
 
+
 eureka:
+  server:
+    peer-node-connection-idle-timeout-seconds:99999999 
   client:
     serviceUrl:
       defaultZone: ${vcap.services.eureka-service.credentials.uri:http://localhost:8763}/eureka/
+  instance: 
+    preferIpAddress: true
       
 ribbon:
+  ConnectTimeout: 300000
+  ReadTimeout: 300000
   eureka:
     enabled: true
     
 spring:
   application:
-    name: SurfaceRobot
+    name: SurfaceRobots

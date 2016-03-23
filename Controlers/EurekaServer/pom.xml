@@ -2,7 +2,7 @@
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	
+
 	<!-- Project Description -->
 	<groupId>br.com.deepmapper.controler.eurekaserver</groupId>
 	<artifactId>EurekaServer</artifactId>
@@ -10,18 +10,18 @@
 	<name>EurekaServer</name>
 	<description>Subproject with eureka server controler.</description>
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
-	
+
 	<parent>
 		<groupId>br.com.deepmapper.controlers</groupId>
 		<artifactId>Controlers</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -63,13 +63,13 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-starter-parent</artifactId>
-				<version>Angel.SR3</version>
+				<version>Angel.SR4</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<!-- Configuracao de build -->
 	<build>
 		<plugins>
