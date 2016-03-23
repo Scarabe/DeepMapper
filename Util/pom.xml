@@ -2,7 +2,7 @@
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	
+
 	<!-- Project Description -->
 	<groupId>br.com.deepmapper.util</groupId>
 	<artifactId>Util</artifactId>
@@ -10,18 +10,18 @@
 	<name>Services</name>
 	<description>Utility project.</description>
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>br.com.deepmapper</groupId>
 		<artifactId>DeepMapper</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -40,6 +40,7 @@
 			<artifactId>mongo-java-driver</artifactId>
 			<version>3.2.2</version>
 		</dependency>
+
 		<!-- HTMLUnit -->
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
