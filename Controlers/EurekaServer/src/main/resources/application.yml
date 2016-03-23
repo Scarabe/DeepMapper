@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: ${vcap.application.port:8763}
 
 endpoints:
   restart:
@@ -9,15 +9,20 @@ endpoints:
   health:
     sensitive: false
 
+
 eureka:
   client:
-    serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://192.168.11.200:8763}/eureka/
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
       
+
 ribbon:
   eureka:
     enabled: true
     
-spring:
-  application:
-    name: finchnlvisual
+logging:
+  level:
+    com.netflix: 'WARN'
+    org.springframework.cloud: 'WARN'

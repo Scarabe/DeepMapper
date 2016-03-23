@@ -23,14 +23,13 @@ import br.com.deepmapper.constans.DBConstants;
 import br.com.deepmapper.constans.GoogleConstants;
 import br.com.deepmapper.constans.TextConstants;
 import br.com.deepmapper.dto.NoClassifiedLinksDto;
-import br.com.deepmapper.surfacerobots.test.SurfaceTest;
 import br.com.deepmapper.util.FileUtil;
 import br.com.deepmapper.util.MongoUtil;
 import br.com.deepmapper.util.RegexUtil;
 import br.com.deepmapper.util.UnitUtil;
 
 public class GoogleExtractCrawler {
-	private static final Logger logger = LogManager.getLogger(SurfaceTest.class);
+	private static final Logger logger = LogManager.getLogger(GoogleExtractCrawler.class);
 	private UnitUtil unitUtil = new UnitUtil();
 	private RegexUtil regexUtil = new RegexUtil();
 	private MongoUtil dbUtil = new MongoUtil();
@@ -42,12 +41,12 @@ public class GoogleExtractCrawler {
 	 * @author Guilherme Scarabelo <gui_fernando@hotmail.com>
 	 * @version 1.0
 	 */
-	public void googleRuningPages() {
+	public void googleRuningPages(GoogleConstants googleConstants) {
 		logger.trace("googleRuningPages()");
 
 		CompletionService<Boolean> executor = new ExecutorCompletionService<Boolean>(Executors.newFixedThreadPool(TextConstants.maxThreadPool));
 
-		HtmlPage gPage = unitUtil.googleAcess(GoogleConstants.serchContent.replace(" ", "+"));
+		HtmlPage gPage = unitUtil.googleAcess(googleConstants.getSerchContent().replace(" ", "+"));
 		String searchUrl = gPage.getUrl().toString() + GoogleConstants.googleLinkPlusPage;
 
 		List<Future<Boolean>> threads = new ArrayList<>();

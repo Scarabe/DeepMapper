@@ -1,0 +1,23 @@
+server:
+  port: 0
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://localhost:8763}/eureka/
+      
+ribbon:
+  eureka:
+    enabled: true
+    
+spring:
+  application:
+    name: DeepRobot
