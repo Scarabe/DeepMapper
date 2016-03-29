@@ -6,7 +6,6 @@
 	<!-- Project Description -->
 	<groupId>br.com.deepmapper.services.surfacerobots</groupId>
 	<artifactId>SurfaceRobots</artifactId>
-	<packaging>pom</packaging>
 	<name>SurfaceRobots</name>
 	<description>Subproject with service crawlers of surface link extraction.</description>
 	<modelVersion>4.0.0</modelVersion>

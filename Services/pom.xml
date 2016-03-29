@@ -146,7 +146,8 @@
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-			</dependency>
+			<version>3.2.2</version>
+		</dependency>
 		
 		<!-- JUnit -->
 		<dependency>

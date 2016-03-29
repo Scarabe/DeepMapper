@@ -6,7 +6,6 @@
 	<!-- Project Description -->
 	<groupId>br.com.deepmapper.util</groupId>
 	<artifactId>Util</artifactId>
-	<packaging>pom</packaging>
 	<name>Services</name>
 	<description>Utility project.</description>
 	<modelVersion>4.0.0</modelVersion>

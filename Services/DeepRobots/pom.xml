@@ -6,7 +6,6 @@
 	<!-- Project Description -->
 	<groupId>br.com.deepmapper.services.deeprobots</groupId>
 	<artifactId>DeepRobots</artifactId>
-	<packaging>pom</packaging>
 	<name>DeepRobots</name>
 	<description>Subproject with service crawlers of deep link extraction.</description>
 	<modelVersion>4.0.0</modelVersion>

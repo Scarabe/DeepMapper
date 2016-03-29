@@ -6,7 +6,6 @@
 	<!-- Project Description -->
 	<groupId>br.com.deepmapper.controler.eurekaserver</groupId>
 	<artifactId>EurekaServer</artifactId>
-	<packaging>pom</packaging>
 	<name>EurekaServer</name>
 	<description>Subproject with eureka server controler.</description>
 	<modelVersion>4.0.0</modelVersion>
